@@ -1,0 +1,47 @@
+#include <stdio.h>
+struct term{
+    int row;
+    int col;
+    int val;
+};
+int main(){
+    struct term mat1[100],mat2[100],rmat[100];
+    int i,j,k;
+    int s1,s2;
+    
+    printf("Enter the no of zero values in matrix 1:");
+    scanf("%d",&s1);
+    printf("Enter the row , coloum and value of each element in matrix 1:");
+    for (i=0;i<s1;i++){
+        scanf("%d%d%d",&mat1[i].row,&mat1[i].col,&mat1[i].val);
+    }
+     printf("Enter the no of zero values in matrix 2:");
+    scanf("%d",&s2);
+     printf("Enter the row , coloum and value of each element in matrix 2:");
+    for (i=0;i<s2;i++){
+        scanf("%d%d%d",&mat2[i].row,&mat2[i].col,&mat2[i].val);
+    }
+   i=0;j=0;k=0;
+    while(i<s1&& j<s2){
+        if(mat1[i].row<mat2[j].row || (mat1[i].row==mat2[j].row && mat1[i].col<mat2[j].col)){
+            rmat[k++]=mat1[i++];
+        }
+        else if(mat2[j].row<mat1[i].row || (mat2[j].row==mat1[i].row && mat2[j].col<mat1[i].col)){
+            rmat[k++]=mat2[j++];
+        }
+        else{
+            rmat[k]=mat1[i];
+            rmat[k].val=mat1[i].val+mat2[j].val;
+            i++;
+            j++;
+            if (rmat[k].val != 0){
+                k++;
+            }
+        }
+    }
+    printf("Resultant sparse matrix:\n");
+    for (i=0;i<k;i++){
+        printf("%3d %3d %3d \n",rmat[i].row,rmat[i].col,rmat[i].val);
+    }
+    return 0;
+}
